@@ -8,6 +8,8 @@ public class Simulator {
     static Random r;
     static int process = 0;
 
+    static int interactiveChance, batchChanse, simulationTime, quantum, numberOfCPU;
+
     /**
      * main method to run the program that is specified by the user
      */
@@ -15,17 +17,31 @@ public class Simulator {
         //Declare the start of the program
         System.out.println("\033[91m✨✨❤️Starting The Program❤️✨✨\033[39m\n");
         
+        if (args.length > 5 || args.length <= 0) {
+            System.out.println("\033[91m 💀💀💀  Starting The Program Failed  💀💀💀\033[39m\n");
+            System.exit(42);
+        }
+            
+
+
+
         //Initialize the random variable
         r = new Random();
 
         //Create the queue for the processes
+
+        Process cpu[] = new Process[Integer.parseInt(args[4])];
         ArrayList<Process> processQueue = new ArrayList<Process>();
         ArrayList<Process> tList;
+        ArrayList<Process> completeList = new ArrayList<Process>();
+        ArrayList<Process> IOSystem = new ArrayList<Process>():
+
         //Generate processes until its done
         boolean makingProcesses = true;
         int time = 0;
 
-        while (makingProcesses) {
+        //Running the CPU
+        for (int i=0; i< Integer.parseInt(args[2]); i++) {
             tList = createRandomProcesses(time);
             for (int i = 0; i< tList.size(); i++)
             {
@@ -52,14 +68,14 @@ public class Simulator {
     {
         ArrayList<Process> toReturn = new ArrayList<Process>();
  
-        int check = r.nextInt(10);
+        int check = r.nextInt(batchChanse);
         //Create random Batch process 
         if (check == 1) {
             toReturn.add(createBatchProcess(creationTime));
             process++;
         }
         //Create random Interactive process
-        check = r.nextInt(10);
+        check = r.nextInt(interactiveChance);
         if (check == 1) {
             toReturn.add(createInteractiveProcess(creationTime));
             process++;

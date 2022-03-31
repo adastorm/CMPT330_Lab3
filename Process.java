@@ -29,7 +29,9 @@ public class Process {
         this.creationTime = creationTime;
     }
 
-    
+    /**
+     * prints out a formatted version of the process
+     */
     public String toString() {
         String s = "\033[7mProcess:\033[27m \nType: ";
         if (type == 0)

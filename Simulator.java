@@ -5,24 +5,40 @@ import java.util.Random;
  * Simulator
  */
 public class Simulator {
-    Process processList[];
     static Random r;
-    int process = 0;
+    static int process = 0;
 
+    /**
+     * main method to run the program that is specified by the user
+     */
     public static void main(String[] args) {
         //Declare the start of the program
-        System.out.println("\033[91m✨✨❤️Starting The Program❤️✨✨\033[39m");
+        System.out.println("\033[91m✨✨❤️Starting The Program❤️✨✨\033[39m\n");
         
         //Initialize the random variable
         r = new Random();
 
         //Create the queue for the processes
         ArrayList<Process> processQueue = new ArrayList<Process>();
-
+        ArrayList<Process> tList;
         //Generate processes until its done
         boolean makingProcesses = true;
+        int time = 0;
+
         while (makingProcesses) {
-            create
+            tList = createRandomProcesses(time);
+            for (int i = 0; i< tList.size(); i++)
+            {
+                processQueue.add(tList.get(i));
+                if(i>=1) makingProcesses = false;
+            }
+            time++;
+        }
+
+        //Print it out
+        for(int i = 0; i<processQueue.size(); i++)
+        {
+            System.out.println(processQueue.get(i));
         }
     }
 
@@ -32,7 +48,7 @@ public class Simulator {
      * @param creationTime the time of creation
      * @return the list of 0-2 processes
      */
-    private ArrayList<Process> createRandomProcesses(int creationTime)
+    private static ArrayList<Process> createRandomProcesses(int creationTime)
     {
         ArrayList<Process> toReturn = new ArrayList<Process>();
  
@@ -56,7 +72,7 @@ public class Simulator {
      * Method to create a batch process
      * @return A newly created batch process
      */
-    private Process createBatchProcess(int time) {
+    private static Process createBatchProcess(int time) {
         int type = 1;
         int processID = process;
         int burst = r.nextInt(100) + 200; //Between 200-300
@@ -70,7 +86,7 @@ public class Simulator {
      * Method to create an interactive process
      * @return A newly created interactive process
      */
-    private Process createInteractiveProcess(int time) {
+    private static Process createInteractiveProcess(int time) {
         int type = 0;
         int processID = process;
         int burst = r.nextInt(4) + 8; // Between 8-12

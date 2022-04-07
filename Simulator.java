@@ -3,6 +3,7 @@ import java.util.Random;
 
 /**
  * Simulator
+ * @author Jonah Watts
  */
 public class Simulator {
     static Random r;
@@ -15,7 +16,7 @@ public class Simulator {
         //Declare the start of the program
         System.out.println("\033[91m✨✨❤️Starting The Program❤️✨✨\033[39m\n");
         
-        if (args.length > 5 || args.length <= 0) {
+        if (args.length != 5) {
             System.out.println("\033[91m 💀💀💀  Starting The Program Failed  💀💀💀\033[39m\n");
             System.out.println("Correct format  'java Simulator interactiveChance | Batch Chance | Simulation Time | Quantum | CPU Size '");
             System.exit(42);
@@ -26,6 +27,8 @@ public class Simulator {
         batchChance = Integer.parseInt(args[1]);
         simulationTime = Integer.parseInt(args[2]);
 
+        //Create the turnaround time
+        int turnAroundTime = 0;
 
         //Initialize the random variable
         r = new Random();
@@ -51,7 +54,6 @@ public class Simulator {
             for (int i = 0; i< tList.size(); i++)
             {
                 processQueue.add(tList.get(i));
-                // if(i>=1) makingProcesses = false;
             }
 
             //process the CPU
@@ -65,6 +67,7 @@ public class Simulator {
                     //Remove completed processes
                     if (cpu[i].processComplete()) {
                         completeList.add(cpu[i]);
+                        turnAroundTime += j - cpu[i].returnCreationTime();
                         cpu[i] = null;
                     }
                     //Move blocked processes to the IO queue
@@ -128,7 +131,7 @@ public class Simulator {
         //Exiting at simulation time
             System.out.println("Exiting at simulation time: "+ time);
         //Simulation result
-            System.out.println("Simulation Result");
+            System.out.println("Simulation Result,"+quantum+","+completeList.size()+","+simulationTime+","+turnAroundTime);
             
 
     }
@@ -142,16 +145,14 @@ public class Simulator {
     private static ArrayList<Process> createRandomProcesses(int creationTime)
     {
         ArrayList<Process> toReturn = new ArrayList<Process>();
- 
-        int check = r.nextInt(batchChance);
-        //Create random Batch process 
-        if (check == 0) {
+        //Account for 0
+        if(batchChance>0 && r.nextInt(batchChance) == 0)
+        {
             toReturn.add(createBatchProcess(creationTime));
             process++;
         }
         //Create random Interactive process
-        check = r.nextInt(interactiveChance);
-        if (check == 0) {
+        if (interactiveChance > 0 && r.nextInt(interactiveChance) == 0) {
             toReturn.add(createInteractiveProcess(creationTime));
             process++;
         }

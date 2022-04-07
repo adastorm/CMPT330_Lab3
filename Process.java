@@ -50,6 +50,14 @@ public class Process {
     }
 
     /**
+     * Returns the creation time
+     * @return the creation time
+     */
+    public int returnCreationTime() {
+        return creationTime;
+    }
+
+    /**
      * Function to simulate a clock tick on a process
      */
     public void decrimentCPU() {

@@ -1,0 +1,11 @@
+jonah@slim-shady:~/GithubProjects/CMPT330_Lab3$ java Simulator 10 10 500 5 4
+✨✨❤️Starting The Program❤️✨✨
+
+Ready Processes: 79
+Processes in CPU: 4
+Blocked processes: 0
+Completed processes: 23
+Accounted for 106 of 106 processes
+Number of CPUs: 4
+Exiting at simulation time: 500
+Simulation Result,5,23,500,2513
